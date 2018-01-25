@@ -9,7 +9,7 @@ libopenmpi-dev \
 libxml2-dev \
 petsc-dev \
 python \
-numpy \
+numpy 
 
 ENV CPATH="/usr/include/eigen3:${CPATH}"
 
