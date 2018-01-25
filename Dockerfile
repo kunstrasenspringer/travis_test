@@ -1,10 +1,22 @@
 FROM ubuntu:16.04
 RUN apt-get update && apt-get install -y \
-python
+build-essential \
+git \
+scons \
+libeigen3-dev \
+libboost-all-dev \
+libopenmpi-dev \
+libxml2-dev \
+petsc-dev \
+python \
+numpy \
+
+ENV CPATH="/usr/include/eigen3:${CPATH}"
 
 RUN useradd -ms /bin/bash alice
 
 USER alice
 WORKDIR /home/alice
-COPY script.py /home/alice
-RUN python script.py
+RUN git clone https://github.com/precice/precice.git
+WORKDIR precice
+RUN scons petsc=off mpi=on python=off compiler="mpicxx" -j2
