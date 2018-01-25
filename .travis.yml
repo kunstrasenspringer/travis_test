@@ -1,0 +1,14 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+before_install:
+  - docker build -t test .
+  - docker run test /bin/sh -c "cd /home/alice"
+  - docker run test /bin/sh -c "python skript.py"
+
+script:
+  - python skript.py
