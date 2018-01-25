@@ -7,8 +7,7 @@ services:
 
 before_install:
   - docker build -t test .
-  - docker run test /bin/sh -c "cd /home/alice"
-  - docker run test /bin/sh -c "python skript.py"
+  - docker run test /bin/sh -c "cd /home/alice; python skript.py"
 
 script:
   - python skript.py
