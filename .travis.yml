@@ -9,4 +9,4 @@ before_install:
   - docker build -t test .
 
 script:
-  - ls
+  - script.py
