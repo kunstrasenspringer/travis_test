@@ -20,5 +20,10 @@ RUN useradd -ms /bin/bash alice
 USER alice
 WORKDIR /home/alice
 RUN git clone https://github.com/precice/precice.git
+RUN git clone https://github.com/precice/su2-adapter.git
+RUN git clone https://github.com/su2code/SU2.git
+RUN git clone https://github.com/precice/calculix-adapter.git
+RUN git https://github.com/precice/tutorials.git
 WORKDIR precice
 RUN scons petsc=off mpi=on python=off compiler="mpicxx" -j2
+WORKDIR /home/alice
