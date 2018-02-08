@@ -9,9 +9,11 @@ libopenmpi-dev \
 libxml2-dev \
 petsc-dev \
 python \
-python-numpy 
+python-numpy
 
 ENV CPATH="/usr/include/eigen3:${CPATH}"
+
+ADD vmd /usr/include/boost/vmd
 
 RUN useradd -ms /bin/bash alice
 
