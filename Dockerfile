@@ -16,19 +16,17 @@ ADD vmd /usr/include/boost/vmd
 ENV CPATH="/usr/include/eigen3:${CPATH}"
 ENV PETSC_DIR="/usr/lib/petscdir/3.6.2/"
 ENV PETSC_ARCH="x86_64-linux-gnu-real"
+ENV PRECICE_ROOT="/home/alice/precice"
+ENV SU2_HOME="/home/alice/su2-source"
+ENV SU2_BIN="/home/alice/su2-bin"
+ENV SU2_RUN="/home/alice/su2-bin/bin"
+ENV PATH="/home/alice/su2-bin/bin:${PATH}"
+ENV PYTHONPATH="/home/alice/su2-bin/bin:${PYTHONPATH}"
+ENV PATH="/home/alice/calculix-adapter/bin:${PATH}"
 
 RUN useradd -ms /bin/bash alice
 
 USER alice
-
-ENV PRECICE_ROOT="/home/alice/precice"
-ENV SU2_HOME="/home/alice/su2-source"
-ENV LD_LIBRARY_PATH="/home/alice/precice/build/last:${LD_LIBRARY_PATH}"
-ENV SU2_BIN="/home/alice/su2-bin"
-ENV SU2_RUN="/home/alice/su2-bin/bin"
-ENV PATH="/home/alice/su2-bin/bin:${PATH}"
-ENV PATH="/home/alice/calculix-adapter/bin"
-ENV PYTHONPATH="/home/alice/su2-bin/bin:${PYTHONPATH}"
 
 WORKDIR /home/alice
 RUN git clone https://github.com/precice/precice.git
