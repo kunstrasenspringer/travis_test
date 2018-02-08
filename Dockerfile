@@ -22,7 +22,10 @@ RUN useradd -ms /bin/bash alice
 USER alice
 
 ENV PRECICE_ROOT="/home/alice/precice"
-
+ENV SU2_HOME="/home/alice/su2-source"
+ENV SU2_BIN="/home/alice/su2-bin"
+ENV SU2_RUN="/home/alice/su2-bin/bin"
+ENV PATH="/home/alice/calculix-adapter/bin"
 
 WORKDIR /home/alice
 RUN git clone https://github.com/precice/precice.git
