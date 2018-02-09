@@ -9,7 +9,11 @@ libopenmpi-dev \
 libxml2-dev \
 petsc-dev \
 python \
-python-numpy
+python-numpy \
+wget \
+tar \
+bzip2 \
+libbz2-dev
 
 ADD vmd /usr/include/boost/vmd
 
@@ -24,8 +28,10 @@ USER alice
 WORKDIR /home/alice
 
 RUN git clone https://github.com/precice/precice.git
-RUN git clone https://github.com/precice/su2-adapter.git
 RUN git clone https://github.com/su2code/SU2.git su2-source
+RUN git clone https://github.com/precice/su2-adapter.git
+RUN wget http://www.dhondt.de/ccx_2.13.src.tar.bz2
+RUN tar -xf ccx_2.13.src.tar.bz2
 RUN git clone https://github.com/precice/calculix-adapter.git
 RUN git clone https://github.com/precice/tutorials.git
 
