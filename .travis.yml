@@ -14,8 +14,3 @@ jobs:
     script:
     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     - docker build -f Dockerfile.su2_ccx -t su2_ccx .
-  - stage: testing openfoam
-    script:
-    - echo testing openfoam
-  - stage: testing other simu
-    - echo testing other simu
