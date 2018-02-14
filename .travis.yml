@@ -1,12 +1,17 @@
-sudo: required
-
-language: python
-
-services:
-  - docker
-
-before_install:
-  - docker build -t test .
-
-script:
-  - ls
+sudo: true
+dist: trusty
+jobs:
+  include:
+  - stage: build precice docker image
+    script:
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker build -f Dockerfile.precice -t precice .
+    - docker images
+    - docker tag precice $DOCKER_USERNAME/precice
+    - docker push $DOCKER_USERNAME/precice
+  - stage: test
+    script: docker build -f Dockerfile.su2_ccx -t su2_ccx .
+env:
+  matrix:
+  - secure: RCukqqTkZsHy6qqCNvMkMKOz9JPvDfZeHBrM29100WEzb+Vkc+qAL5nVQkCbcv6vD8Cs386dSmCi7mkyxfIsD28dR+rEHDvCWk6HF6pMpqq1tGr2nm79t5rJ4TMgVEEvzm2IelLeoGqBfXvDHnpjMfkkBQpTSWEHz5NAUBSBAetrzTxiayIRxoZ8qlllMU6GWLKzCYximEqDNxTwaNXrGF6ccDg4rVqDzAuveuE7/UhtRVmoiMUQgUwgvzjRqtD2Soy57bFvWx6PsBzGyJ9x6hp29n3Z+s8vcov5af7KqT2e0aqv57Hw/JuaGieZO1XD6zvbO2cHt9tOzI1CUYQXZw5k1Ilxg9mEeX+RJwO+V0+rOOHUmmK/Xg9/83D27V095BcdO3w7c04lMYjWeHPXSYmiTjMCc+P/6eLT/zR7KtyHax4dnpg+MqaRMK4i7mOVajEjVGuva4NNjJn3+lXRItEEIRkMyrEaXan7TwbM2oRulbAeZdn52ONdP0T4s0FpCzNeQjgG/PFkXKjf9hwZYOa3amfq78uD/7DrtS+80ibSLHffB8pTK6Hv38cM37T2qDuNvufw15W3FUbYae3arJ7YxE5CYJ7pu38YiS4F11M4LciW73vc1uzJyLymx1tIN+1PJgHEOrY03nRXr6WUu/WwrB7qh4JgES7s8+TRaY8=
+  - secure: xKlCeiZVUxgxdNjtM63g8Xml6EuV+vMdzZfgrM2E009pSWyDhvDA6775JXH5Et6IJjyIcGeeku8mfNS9Zk3SHm3uR4vFgEcvlucJYxWtaqMQHldMUKPEz5ZygzIJ6ZHCxBB4qx8SqpS1gwgmgTpFY8GCWKHlM1GTSMDFvzO7PDF1D5cOOTc4QU+zfpAoUlPUYVrUB7YLbGCAhnmA1ufB0U/S0lkU1885J0CLJZY0wylut7GLHIGTsycQIT98O0cHZCmlu6BwqipIpjVkxPfe3l4Ge0euvK3WSk79A/dNtloxTI306Re9KoCOJwTO/mcTeOEd8wBGd60DsD/7Km8UBpms2KsVbKzL3oEsIguUnQXVurZgdySDtuuEQonB4BoHwS+nHZjXSDYNHKFCjD/xLIkXlvu10k5zCsaVOq+NekTcIJHNQ5paNLgtRi//xWWP24qz7/zC6MjqymlaI8Bb5XEDx9mO5tOofCyQuzp2KkpcDYmlPCSvEaQU6aUM/Zpsn9GVKVmOSTSpXahmKRPOw6guDwEuoicJRuvlBcIO7Kp+Cz7QLOm1i5S5zAbYUn2sQEpqZcevXEOs1cVqSNc7LKpYFrjiwT0NlfsPAU1Jx2nmhuKandAvAS5xXxx931YdLlcf6y1uyE5vjhkyL7Ts6l72bAfz7vYnqttnXigUBMU=

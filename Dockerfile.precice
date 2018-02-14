@@ -1,0 +1,33 @@
+FROM ubuntu:16.04
+RUN apt-get update && apt-get install -y \
+build-essential \
+git \
+scons \
+libeigen3-dev \
+libopenmpi-dev \
+libxml2-dev \
+petsc-dev \
+python \
+python-numpy \
+python-dev
+
+ENV CPATH="/usr/include/eigen3:${CPATH}"
+ENV PETSC_DIR="/usr/lib/petscdir/3.6.2/"
+ENV PETSC_ARCH="x86_64-linux-gnu-real"
+
+COPY boost_1_65_0.tar.gz /
+RUN tar -xf boost_1_65_0.tar.gz
+WORKDIR boost_1_65_0
+RUN ./bootstrap.sh --with-libraries=log,thread,system,filesystem,program_options,test --prefix=/usr/local
+RUN ./b2 install
+
+RUN useradd -ms /bin/bash alice
+USER alice
+
+WORKDIR /home/alice
+RUN git clone https://github.com/precice/precice.git
+WORKDIR precice
+RUN scons petsc=off mpi=on python=off compiler="mpicxx" -j2
+
+ENV PRECICE_ROOT="/home/alice/precice"
+ENV LD_LIBRARY_PATH="/home/alice/precice/build/last:${LD_LIBRARY_PATH}"
