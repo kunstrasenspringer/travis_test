@@ -3,6 +3,10 @@ dist: trusty
 
 jobs:
   include:
+  - stage: test
+    script: echo test1
+    script: echo test2
+    script: echo test3
   - stage: build precice docker image
     script:
     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
@@ -14,3 +18,5 @@ jobs:
     script:
     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     - docker build -f Dockerfile.su2_ccx -t su2_ccx .
+    script:
+    - echo test4
