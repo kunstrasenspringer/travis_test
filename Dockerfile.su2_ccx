@@ -36,8 +36,11 @@ COPY Makefile /home/alice/calculix-adapter
 WORKDIR /home/alice/calculix-adapter/
 RUN make
 
+ENV PATH="/home/alice/calculix-adapter/bin:${PATH}"
+
 WORKDIR /home/alice
-RUN git clone https://github.com/su2code/SU2.git su2-source
+RUN git clone https://github.com/su2code/SU2.git su2-source && \
+    cd su2-source && git checkout tags/v5.0.0 && cd ..
 RUN git clone https://github.com/precice/su2-adapter.git
 
 ENV SU2_HOME="/home/alice/su2-source"
@@ -46,9 +49,14 @@ ENV SU2_RUN="/home/alice/su2-bin/bin"
 ENV PATH="/home/alice/su2-bin/bin:${PATH}"
 ENV PYTHONPATH="/home/alice/su2-bin/bin:${PYTHONPATH}"
 
-#WORKDIR /home/alice/su2-adapter
-#RUN ./su2AdapterInstall
+WORKDIR /home/alice/su2-adapter
+RUN ./su2AdapterInstall
 
 WORKDIR /home/alice/su2-source
 RUN ./configure --prefix=${SU2_BIN} CXXFLAGS="-std=c++11" --enable-mpi
 RUN make -j 2 install
+
+WORKDIR /home/alice/
+RUN git clone https://github.com/precice/tutorials.git
+
+WORKDIR /home/alice//tutorials/FSI/flap_perp/SU2-CalculiX

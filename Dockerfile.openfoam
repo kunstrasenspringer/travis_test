@@ -1,0 +1,23 @@
+FROM kunstrasenspringer/precice:latest
+
+USER root
+RUN apt-get update && apt-get install -y \
+software-properties-common \
+wget
+RUN add-apt-repository http://dl.openfoam.org/ubuntu
+RUN sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
+RUN apt-get update && apt-get install -y \
+openfoam5 \
+libyaml-cpp-dev
+
+USER alice
+WORKDIR /home/alice
+
+RUN git clone https://github.com/precice/openfoam-adapter.git
+WORKDIR /home/alice/openfoam-adapter
+RUN ./Allwmake
+
+WORKDIR /home/alice/
+RUN git clone https://github.com/precice/tutorials.git
+
+WORKDIR /home/alice//tutorials/CHT/heat_exchanger/buoyantSimpleFoam-CalculiX
