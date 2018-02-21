@@ -5,12 +5,15 @@ jobs:
   include:
   - stage: build precice docker image
     script:
-    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    - docker build -f Dockerfile.precice -t precice .
-    - docker images
-    - docker tag precice $DOCKER_USERNAME/precice
-    - docker push $DOCKER_USERNAME/precice
-  - stage: testing su2 and ccx
-    script:
-    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    - docker build -f Dockerfile.su2_ccx -t su2_ccx .
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -f Dockerfile.precice -t precice .
+      - docker images
+      - docker tag precice $DOCKER_USERNAME/precice
+      - docker push $DOCKER_USERNAME/precice
+  - stage: testing
+    - script:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -f Dockerfile.su2_ccx -t su2_ccx .
+    - script:
+      - mkdir test
+      - cd test
