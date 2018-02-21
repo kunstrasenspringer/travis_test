@@ -11,7 +11,7 @@ jobs:
       - docker tag precice $DOCKER_USERNAME/precice
       - docker push $DOCKER_USERNAME/precice
   - stage: testing
-    - script:
+    script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       - docker build -f Dockerfile.su2_ccx -t su2_ccx .
     - script:
