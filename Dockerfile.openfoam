@@ -6,9 +6,8 @@ software-properties-common \
 wget
 RUN add-apt-repository http://dl.openfoam.org/ubuntu
 RUN sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
-RUN apt-get update && apt-get install -y \
-openfoam5 \
-libyaml-cpp-dev
+RUN apt-get install -y libyaml-cpp-dev
+RUN apt-get update && apt-get install -y openfoam5
 
 USER alice
 WORKDIR /home/alice
