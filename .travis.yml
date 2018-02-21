@@ -5,14 +5,18 @@ jobs:
   include:
   - stage: build precice docker image
     script:
-      - mkdir test
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -f Dockerfile.precice -t precice .
+      - docker images
+      - docker tag precice $DOCKER_USERNAME/precice
+      - docker push $DOCKER_USERNAME/precice
   - stage: testing
     - script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       - docker build -f Dockerfile.su2_ccx -t su2_ccx .
     - script:
-      - mkdir test1
-      - cd test1
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -f Dockerfile.openfoam -t openfoam .
     - script:
       - mkdir test2
       - cd test2
