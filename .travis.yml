@@ -6,10 +6,8 @@ jobs:
   - stage: build precice docker image
     script:
     - mkdir test1
-  - stage: testing su2 and ccx
+  - stage: Testing
     script:
-    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    - docker build -f Dockerfile.su2_ccx -t su2_ccx .
+    - mkdir test2
   - script:
-    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    - docker build -f Dockerfile.openfoam -t openfoam .
+    - mkdir test3
