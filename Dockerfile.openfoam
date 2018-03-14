@@ -2,12 +2,19 @@ FROM kunstrasenspringer/precice:latest
 
 USER root
 RUN apt-get update && apt-get install -y \
-software-properties-common \
-wget
-RUN add-apt-repository http://dl.openfoam.org/ubuntu
+    software-properties-common \
+    wget apt-transport-https
+
+RUN add-apt-repository "http://dl.openfoam.org/ubuntu dev"
 RUN sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
+RUN add-apt-repository http://dl.openfoam.org/ubuntu && apt update
+RUN apt-get -y install openfoam-dev --no-install-recommends
+
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+RUN . /opt/openfoam-dev/etc/bashrc
+
 RUN apt-get install -y libyaml-cpp-dev
-RUN apt-get update && apt-get install -y openfoam5
 
 USER alice
 WORKDIR /home/alice

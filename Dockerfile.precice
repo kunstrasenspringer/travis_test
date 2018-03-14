@@ -1,15 +1,15 @@
 FROM ubuntu:16.04
 RUN apt-get update && apt-get install -y \
-build-essential \
-git \
-scons \
-libeigen3-dev \
-libopenmpi-dev \
-libxml2-dev \
-petsc-dev \
-python \
-python-numpy \
-python-dev
+    build-essential \
+    git \
+    scons \
+    libeigen3-dev \
+    libopenmpi-dev \
+    libxml2-dev \
+    petsc-dev \
+    python \
+    python-numpy \
+    python-dev
 
 ENV CPATH="/usr/include/eigen3:${CPATH}"
 ENV PETSC_DIR="/usr/lib/petscdir/3.6.2/"
@@ -18,8 +18,8 @@ ENV PETSC_ARCH="x86_64-linux-gnu-real"
 COPY boost_1_65_0.tar.gz /
 RUN tar -xf boost_1_65_0.tar.gz
 WORKDIR boost_1_65_0
-RUN ./bootstrap.sh --with-libraries=log,thread,system,filesystem,program_options,test --prefix=/usr/local
-RUN ./b2 install
+RUN ./bootstrap.sh --with-libraries=log,thread,system,filesystem,program_options,test --prefix=/usr/local && \
+    ./b2 install
 
 RUN useradd -ms /bin/bash alice
 USER alice

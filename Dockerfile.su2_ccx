@@ -39,8 +39,7 @@ RUN make
 ENV PATH="/home/alice/calculix-adapter/bin:${PATH}"
 
 WORKDIR /home/alice
-RUN git clone https://github.com/su2code/SU2.git su2-source && \
-    cd su2-source && git checkout tags/v5.0.0 && cd ..
+RUN git clone https://github.com/su2code/SU2.git su2-source
 RUN git clone https://github.com/precice/su2-adapter.git
 
 ENV SU2_HOME="/home/alice/su2-source"
@@ -59,4 +58,20 @@ RUN make -j 2 install
 WORKDIR /home/alice/
 RUN git clone https://github.com/precice/tutorials.git
 
-WORKDIR /home/alice//tutorials/FSI/flap_perp/SU2-CalculiX
+WORKDIR /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX
+RUN ccx_preCICE -i flap -precice-participant Calculix & SU2_CFD euler_config_coupled.cfg; exit 0
+
+WORKDIR /home/alice/
+RUN mkdir Output && cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flow*.vtk /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.cvg /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.dat /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.frd /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.sta /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/convergence-Calculix.txt /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/forces_breakdown.dat /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/iterations-Calculix.txt /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/iterations-SU2_CFD.txt /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/point1.watchpoint.txt /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/restart_flow_*.dat /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/spooles.out /home/alice/Output && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/surface_flow_*.csv /home/alice/Output

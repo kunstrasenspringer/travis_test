@@ -5,9 +5,26 @@ jobs:
   include:
   - stage: build precice docker image
     script:
-    - mkdir test1
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker build -f Dockerfile.precice -t precice .
+    - docker images
+    - docker tag precice $DOCKER_USERNAME/precice
+    - docker push $DOCKER_USERNAME/precice
   - stage: Testing
+    install:
+    - sudo apt-get install python
     script:
-    - mkdir test2
-  - script:
-    - mkdir test3
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker build -f Dockerfile.su2_ccx -t su2_ccx .
+    - docker run -it -d --name su2_ccx_container
+    - docker cp su2_ccx_container:/home/alice/Output .
+    - pyhton compare_SU2-CCX.py
+    after_failure:
+    - echo after failure
+  - install:
+    - sudo apt-get install python
+    script:
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker build -f Dockerfile.openfoam -t openfoam .
+    after_failure:
+    - echo after failure
