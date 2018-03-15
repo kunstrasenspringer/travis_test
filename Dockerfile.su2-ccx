@@ -2,14 +2,14 @@ FROM kunstrasenspringer/precice:latest
 
 USER root
 RUN apt-get update && apt-get install -y \
-wget \
-bzip2 \
-libbz2-dev \
-cmake \
-automake \
-autoconf \
-autotools-dev \
-libarpack2-dev
+    wget \
+    bzip2 \
+    libbz2-dev \
+    cmake \
+    automake \
+    autoconf \
+    autotools-dev \
+    libarpack2-dev
 
 USER alice
 WORKDIR /home/alice
