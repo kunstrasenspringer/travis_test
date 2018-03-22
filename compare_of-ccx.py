@@ -2,8 +2,8 @@
 import subprocess
 import os
 
-pathToTest1 = os.getcwd() + '/ref_of-of/'
-pathToTest2 = os.getcwd() + '/Output/'
+pathToTest1 = os.getcwd() + '/ref_of-ccx/'
+pathToTest2 = os.getcwd() + '/Output_of-ccx/'
 
 os.chdir(pathToTest1)
 subprocess.call(['sed', '-i', '-e', '1,110d', 'Fluid.log'])

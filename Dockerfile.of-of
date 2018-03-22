@@ -26,6 +26,6 @@ WORKDIR /home/alice/openfoam-adapter/tutorials/CHT/flow-over-plate/buoyantPimple
 RUN . /opt/openfoam-dev/etc/bashrc && ./Allrun
 
 WORKDIR /home/alice/
-RUN mkdir Output && \
-    cp /home/alice/openfoam-adapter/tutorials/CHT/flow-over-plate/buoyantPimpleFoam-laplacianFoam/Solid.log /home/alice/Output && \
-    cp /home/alice/openfoam-adapter/tutorials/CHT/flow-over-plate/buoyantPimpleFoam-laplacianFoam/Fluid.log /home/alice/Output
+RUN mkdir Output_of-of && \
+    cp /home/alice/openfoam-adapter/tutorials/CHT/flow-over-plate/buoyantPimpleFoam-laplacianFoam/Solid.log /home/alice/Output_of-of && \
+    cp /home/alice/openfoam-adapter/tutorials/CHT/flow-over-plate/buoyantPimpleFoam-laplacianFoam/Fluid.log /home/alice/Output_of-of

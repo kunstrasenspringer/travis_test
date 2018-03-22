@@ -1,6 +1,5 @@
 #!/bin/sh
 output=$1
-ref=$2
 
 setup_git() {
   git config --global user.email "travis@travis-ci.org"
@@ -10,7 +9,7 @@ setup_git() {
 commit_files() {
   git fetch
   git checkout master
-  git add $ref
+  git add $output
   git commit --message "$ref updated: $TRAVIS_BUILD_NUMBER"
 }
 
@@ -20,8 +19,6 @@ upload_files() {
 }
 
 if [ -d "$output" ]; then
-  rm -rf $ref
-  mv $output $ref
   setup_git
   commit_files
   upload_files

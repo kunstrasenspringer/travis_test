@@ -72,6 +72,6 @@ RUN . /opt/openfoam-dev/etc/bashrc && ./Allrun
 
 # Copy output to folder Output for further examination
 # WORKDIR /home/alice/
-# RUN mkdir Output && \
-#     cp /home/alice/tutorials/CHT/heat_exchanger/buoyantSimpleFoam-CalculiX/Solid.log /home/alice/Output && \
-#     cp /home/alice/tutorials/CHT/heat_exchanger/buoyantSimpleFoam-CalculiX/Fluid.log /home/alice/Output
+# RUN mkdir Output_of-ccx && \
+#     cp /home/alice/tutorials/CHT/heat_exchanger/buoyantSimpleFoam-CalculiX/Solid.log /home/alice/Output_of-ccx && \
+#     cp /home/alice/tutorials/CHT/heat_exchanger/buoyantSimpleFoam-CalculiX/Fluid.log /home/alice/Output_of-ccx

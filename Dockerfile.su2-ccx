@@ -59,19 +59,19 @@ WORKDIR /home/alice/
 RUN git clone https://github.com/precice/tutorials.git
 
 WORKDIR /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX
-RUN ccx_preCICE -i flap -precice-participant Calculix & SU2_CFD euler_config_coupled.cfg; exit 0
+RUN ccx_preCICE -i flap -precice-participant Calculix & SU2_CFD euler_config_coupled.cfg &>/dev/null; exit 0
 
 WORKDIR /home/alice/
-RUN mkdir Output && cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flow*.vtk /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.cvg /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.dat /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.frd /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.sta /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/convergence-Calculix.txt /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/forces_breakdown.dat /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/iterations-Calculix.txt /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/iterations-SU2_CFD.txt /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/point1.watchpoint.txt /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/restart_flow_*.dat /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/spooles.out /home/alice/Output && \
-cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/surface_flow_*.csv /home/alice/Output
+RUN mkdir Output_su2-ccx && cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flow*.vtk /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.cvg /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.dat /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.frd /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/flap.sta /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/convergence-Calculix.txt /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/forces_breakdown.dat /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/iterations-Calculix.txt /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/iterations-SU2_CFD.txt /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/point1.watchpoint.txt /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/restart_flow_*.dat /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/spooles.out /home/alice/Output_su2-ccx && \
+cp /home/alice/tutorials/FSI/flap_perp/SU2-CalculiX/surface_flow_*.csv /home/alice/Output_su2-ccx
