@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "test succesful"
+echo "shell test succesful"
