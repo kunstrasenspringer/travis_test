@@ -10,6 +10,7 @@ jobs:
     - docker images
     - docker tag test $DOCKER_USERNAME/test
     - docker push $DOCKER_USERNAME/test
+    - sh test.sh
   - stage: second part
     script:
     - cd $TRAVIS_BUILD_DIR/travis_test/test/
