@@ -13,7 +13,7 @@ jobs:
     - sh test.sh
   - stage: second part
     script:
-    - cd $TRAVIS_BUILD_DIR/travis_test/test/
+    - cd $TRAVIS_BUILD_DIR/test/
     - python test.py
     - docker build -t testtest -f Dockerfile.testtest .
     - docker run -it -d --name testtest_container testtest
