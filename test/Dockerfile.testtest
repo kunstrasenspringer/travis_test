@@ -1,0 +1,8 @@
+FROM kunstrasenspringer/test:latest
+
+USER root
+RUN apt-get update
+
+USER test
+WORKDIR /home/test/travis_test
+RUN test.sh
