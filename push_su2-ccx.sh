@@ -14,31 +14,31 @@ fi
 # version of preCICE
 PRECICE_VERSION=$(git ls-remote --tags https://github.com/precice/precice.git | tail -1)
 PRECICE_VERSION="precice_version: "$PRECICE_VERSION
-echo $PRECICE_VERSION >> /log_su2-ccx
+echo $PRECICE_VERSION >> log_su2-ccx
 
 # version of SU2
 SU2_VERSION=v6.0.0
 SU2_VERSION="su2_version: "$SU2_VERSION
-echo $SU2_VERSION >> /log_su2-ccx
+echo $SU2_VERSION >> log_su2-ccx
 
 # version of SU2-adapter
 SU2_ADAPTER_VERSION=$(git ls-remote https://github.com/precice/su2-adapter.git | tail -1)
 SU2_ADAPTER_VERSION="su2-adapter_commit_version: "$SU2_ADAPTER_VERSION
-echo $SU2_ADAPTER_VERSION >> /log_su2-ccx
+echo $SU2_ADAPTER_VERSION >> log_su2-ccx
 
 # version of CalculiX
 CALCULIX_VERSION="calculix_version: 2.13"
-echo $CALCULIX_VERSION >> /log_su2-ccx
+echo $CALCULIX_VERSION >> log_su2-ccx
 
 # version of CalculiX-adapter
 CCX_ADAPTER_VERSION=$(git ls-remote https://github.com/precice/calculix-adapter.git | tail -1)
 CCX_ADAPTER_VERSION="calculix-adapter_commit_version: "$CCX_ADAPTER_VERSION
-echo $CCX_ADAPTER_VERSION >> /log_su2-ccx
+echo $CCX_ADAPTER_VERSION >> log_su2-ccx
 
 # version of tutorials
 TUTORIALS_VERSION=$(git ls-remote https://github.com/precice/tutorials.git | tail -1)
 TUTORIALS_VERSION="calculix-adapter_commit_version: "$TUTORIALS_VERSION
-echo $TUTORIALS_VERSION >> /log_su2-ccx
+echo $TUTORIALS_VERSION >> log_su2-ccx
 
 
 setup_git() {

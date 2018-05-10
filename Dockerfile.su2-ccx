@@ -101,7 +101,3 @@ cp /tutorials/FSI/flap_perp/SU2-CalculiX/point1.watchpoint.txt /Output_su2-ccx &
 cp /tutorials/FSI/flap_perp/SU2-CalculiX/restart_flow_*.dat /Output_su2-ccx && \
 cp /tutorials/FSI/flap_perp/SU2-CalculiX/spooles.out /Output_su2-ccx && \
 cp /tutorials/FSI/flap_perp/SU2-CalculiX/surface_flow_*.csv /Output_su2-ccx
-
-# Logging information about the build
-COPY log_su2-ccx_docker.sh /
-RUN sh log_su2-ccx_docker.sh
