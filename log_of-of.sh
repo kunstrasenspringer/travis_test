@@ -2,7 +2,12 @@
 # Saving used sofware version in a log file
 
 # log file
-touch log_of-of
+if [ -f log_of-of ]
+then
+	rm log_of-of
+else
+	touch log_of-of
+fi
 
 # version of preCICE
 PRECICE_VERSION=$(git ls-remote --tags https://github.com/precice/precice.git | cut -d/ -f3 | sort -Vu | tail -1)
