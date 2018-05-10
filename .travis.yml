@@ -9,9 +9,10 @@ jobs:
     - docker cp of-of_container:Output_of-of .
     - python compare_of-of.py
     after_success:
-    - . log_of-of.sh && sh push_of-of.sh log_of-of
+    - sh log_of-of.sh
+    - sh push_of-of.sh log_of-of
     after_failure:
-    - . log_of-of.sh && sh push_of-of.sh Output_of-of
+    - sh push_of-of.sh Output_of-of
 env:
   global:
     secure: lPoqC++lE1sZXX6PynOIgQDB9FFKOCQQQvE04UyDGceSp7mVXWrExksg6Z9xY3bhPUccxNGKrkeylXFkOok0Ad1OEiJ1p6K2eSTEhkHfUmOBAC68bpvpPkYYmdU4LrK53Zrk+W2nAlar5K8OMBjAwoU1+kR1bM1qju72m42+3K2U3dMYm4twee4wUdvL7RfdnAiUeQEcZX8pmoUUqF7jQIESk4NJ+92rKmbB7Qm7ntzp2weHv6cFo5RS/j6KqyUGBYnHVV/WReJqGUfDkPR20ONrfNwF5vuJ/xzuXlPwlFk0N3FEdDZYTKAj3EVGnhUBh9ndnraRV1k17vo+2LaTe5rqSKcJ6z3hOxQW3OfEgET8rZ5F5eM96/YPiq3WkclUH2jl9XRoGFhRtivAiyuwHuDBSZP4sIXtjLxykHFbioeS61yLchzaTbQbsqBlEiCfYsaI7Tk8BJlw+VPU+ZdfrZcxbLPwS5O6OB5KGWFdnpt4jJ3Fe/My5X3Ek+dB7baI5Tj9mNG7hMzaTHRPkm+cHVwnxzHkjtztxy2Pw1gvzbrbC51x9AedB1CT9B8pLtLFyZs/DrQhZbRgFw+Z0jWKUd47Exed/Bklg47c/qwQobKpsgd3OImDr9YtzpnifYi3MWg+2Dgr7D/RhQTKeMRB1i+tb4w1hE7aagEXHlrs28o=
