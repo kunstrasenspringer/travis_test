@@ -11,7 +11,8 @@ commit_files() {
   git fetch
   git checkout master
   git add $output
-  git commit -m "Output!=Ref $TRAVIS_BUILD_NUMBER" -m "$PRECICE_VERSION,
+  git commit -m "Output!=Ref $TRAVIS_BUILD_NUMBER" -m "$Ubuntu_Version,
+  $PRECICE_VERSION,
   $OF_VERSION,
   $OF_ADAPTER_VERSION"
 }
