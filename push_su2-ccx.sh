@@ -4,11 +4,11 @@ output=$1
 
 # Saving used sofware version in a log file
 # log file
-if [ -f log_of-of ]
+if [ -f log_su2-ccx ]
 then
-	rm log_of-of
+	rm log_su2-ccx
 else
-	touch log_of-of
+	touch log_su2-ccx
 fi
 
 # version of preCICE
