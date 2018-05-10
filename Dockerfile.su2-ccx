@@ -1,0 +1,107 @@
+# System testing preCICE with SU2-adapter and calculix-adapter
+
+# Building on top of the latest preCICE-build
+FROM kunstrasenspringer/precice:latest
+
+USER root
+ENV USER=root
+
+# Installing necessary dependecies
+RUN apt-get update && apt-get install -y \
+    cmake \
+    curl \
+    automake \
+    autoconf \
+    autotools-dev \
+    libarpack2-dev
+
+# Downloading CalculiX 2.13
+WORKDIR /
+RUN curl -s http://www.dhondt.de/ccx_2.13.src.tar.bz2 | tar -xj
+
+# Installing yaml-cpp
+WORKDIR /
+RUN git clone https://github.com/jbeder/yaml-cpp.git yaml-cpp && cd yaml-cpp/ && \
+    mkdir build && cd build && cmake /yaml-cpp/ && make
+
+# Installing spooles
+WORKDIR /
+RUN mkdir spooles.2.2 && cd spooles.2.2 && \
+    curl -s http://www.netlib.org/linalg/spooles/spooles.2.2.tgz | tar -xz && \
+    cd /spooles.2.2/Tree/src/ && \
+    sed -i 's/drawTree/draw/g' makeGlobalLib && \
+    cd /spooles.2.2/ && \
+    sed -i "s#CC = /usr/lang-4.0/bin/cc#CC = /usr/bin/cc#g" Make.inc && \
+    make lib && cd /spooles.2.2/MT/src/ && make
+
+# Downloading and installing ARPACK
+WORKDIR /
+RUN curl -s http://www.caam.rice.edu/software/ARPACK/SRC/arpack96.tar.gz | tar -xz && \
+    mv ARPACK /usr/local/ARPACK \
+    && cd /usr/local/ARPACK \
+    && sed -i 's/$(HOME)/\/usr\/local/g' ARmake.inc \
+    && sed -i 's/\/bin\/make/make/g' ARmake.inc \
+    && sed -i 's/f77/gfortran/g' ARmake.inc \
+    && sed -i 's/SUN4/INTEL/g' ARmake.inc \
+    && sed -i 's/-cg89//g' ARmake.inc \
+    && sed -i 's/      EXTERNAL           ETIME/*     EXTERNAL           ETIME/g' UTIL/second.f \
+    && make all
+
+# Building calculix-adapter
+WORKDIR /
+RUN git clone https://github.com/precice/calculix-adapter.git
+WORKDIR /calculix-adapter/
+COPY Makefile_su2-ccx /calculix-adapter/Makefile
+RUN make
+
+ENV PATH="/calculix-adapter/bin:${PATH}"
+
+# Downloading SU2 and SU2-adapter
+WORKDIR /
+RUN git clone https://github.com/su2code/SU2.git su2-source && cd su2-source && \
+    git fetch && git checkout v6.0.0 && cd ..
+RUN git clone https://github.com/precice/su2-adapter.git
+
+ENV SU2_HOME="/su2-source"
+ENV SU2_BIN="/su2-bin"
+ENV SU2_RUN="/su2-bin/bin"
+ENV PATH="/su2-bin/bin:${PATH}"
+ENV PYTHONPATH="/su2-bin/bin:${PYTHONPATH}"
+
+# Installing su2-adapter
+WORKDIR /su2-adapter
+RUN ./su2AdapterInstall
+
+WORKDIR /su2-source
+RUN ./configure --prefix=${SU2_BIN} CXXFLAGS="-std=c++11" --enable-mpi
+RUN make -j 2 install
+
+# Downloading tutorials
+WORKDIR /
+RUN git clone https://github.com/precice/tutorials.git
+
+# Simulating
+WORKDIR /tutorials/FSI/flap_perp/SU2-CalculiX
+COPY reducing_log_su2-ccx /tutorials/FSI/flap_perp/SU2-CalculiX
+USER root
+RUN ./reducing_log_su2-ccx; exit 0
+
+# Copying output files to a folder for further examination
+WORKDIR /
+RUN mkdir Output_su2-ccx && cp /tutorials/FSI/flap_perp/SU2-CalculiX/flow*.vtk /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/flap.cvg /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/flap.dat /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/flap.frd /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/flap.sta /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/convergence-Calculix.txt /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/forces_breakdown.dat /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/iterations-Calculix.txt /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/iterations-SU2_CFD.txt /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/point1.watchpoint.txt /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/restart_flow_*.dat /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/spooles.out /Output_su2-ccx && \
+cp /tutorials/FSI/flap_perp/SU2-CalculiX/surface_flow_*.csv /Output_su2-ccx
+
+# Logging information about the build
+COPY log_su2-ccx_docker.sh /
+RUN sh log_su2-ccx_docker.sh
