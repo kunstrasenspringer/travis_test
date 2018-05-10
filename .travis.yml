@@ -9,8 +9,7 @@ jobs:
     - docker cp of-of_container:Output_of-of .
     - python compare_of-of.py
     after_success:
-    - sh log_of-of.sh
-    - sh push_of-of.sh log_of-of
+    - sh push_of-of.sh
     after_failure:
     - sh push_of-of.sh Output_of-of
 env:

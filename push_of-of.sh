@@ -37,7 +37,13 @@ setup_git() {
 commit_files() {
   git fetch
   git checkout master
-  git add $output
+  if [ -d "$output" ]
+  then
+      git add log_of-of $output
+  else
+      git add log_of-of
+  fi
+  git add log_of-of $output
   git commit -m "Output!=Ref $TRAVIS_BUILD_NUMBER" -m "$Ubuntu_Version,
   $PRECICE_VERSION,
   $OF_VERSION,
@@ -49,8 +55,6 @@ upload_files() {
   git push --quiet --set-upstream origin master
 }
 
-if [ -d "$output" ]; then
-  setup_git
-  commit_files
-  upload_files
-fi
+setup_git
+commit_files
+upload_files
