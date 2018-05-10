@@ -20,7 +20,7 @@ dimensions      [0 0 0 1 0 0 0];
 internalField   nonuniform List<scalar>
 12013
 (
-300.1
+300
 300
 300
 300
