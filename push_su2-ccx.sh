@@ -48,6 +48,7 @@ setup_git() {
 
 commit_files() {
   git fetch
+	git pull
   git checkout master
   if [ -d "$output" ]
   then
