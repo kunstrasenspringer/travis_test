@@ -18,7 +18,7 @@ echo $PRECICE_VERSION >> log_of-of
 OF_VERSION="OpenFOAM version: 4.1"
 echo $OF_VERSION >> log_of-of
 
-# version of Ubunut
+# version of Ubunutu
 Ubuntu_Version="Ubuntu version: 16.04"
 echo $Ubuntu_Version >> log_of-of
 

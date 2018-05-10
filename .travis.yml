@@ -12,7 +12,7 @@ jobs:
     - sh log_of-of.sh
     - sh push_of-of.sh log_of-of
     after_failure:
-    - sh log_of-of.sh
+    - . log_of-of.sh
     - sh push_of-of.sh Output_of-of
 env:
   global:
