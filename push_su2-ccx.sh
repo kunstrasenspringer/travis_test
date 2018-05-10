@@ -23,7 +23,7 @@ echo $SU2_VERSION >> log_su2-ccx
 
 # version of SU2-adapter
 SU2_ADAPTER_VERSION=$(git ls-remote https://github.com/precice/su2-adapter.git | tail -1)
-SU2_ADAPTER_VERSION="su2-adapter_commit_version: "$SU2_ADAPTER_VERSION
+SU2_ADAPTER_VERSION="su2-adapter version: "$SU2_ADAPTER_VERSION
 echo $SU2_ADAPTER_VERSION >> log_su2-ccx
 
 # version of CalculiX
@@ -32,12 +32,12 @@ echo $CALCULIX_VERSION >> log_su2-ccx
 
 # version of CalculiX-adapter
 CCX_ADAPTER_VERSION=$(git ls-remote https://github.com/precice/calculix-adapter.git | tail -1)
-CCX_ADAPTER_VERSION="calculix-adapter_commit_version: "$CCX_ADAPTER_VERSION
+CCX_ADAPTER_VERSION="calculix-adapter version: "$CCX_ADAPTER_VERSION
 echo $CCX_ADAPTER_VERSION >> log_su2-ccx
 
 # version of tutorials
 TUTORIALS_VERSION=$(git ls-remote https://github.com/precice/tutorials.git | tail -1)
-TUTORIALS_VERSION="calculix-adapter_commit_version: "$TUTORIALS_VERSION
+TUTORIALS_VERSION="tutorials version: "$TUTORIALS_VERSION
 echo $TUTORIALS_VERSION >> log_su2-ccx
 
 
