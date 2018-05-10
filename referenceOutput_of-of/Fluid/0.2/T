@@ -17,10 +17,10 @@ FoamFile
 
 dimensions      [0 0 0 1 0 0 0];
 
-internalField   nonuniform List<scalar> 
+internalField   nonuniform List<scalar>
 12013
 (
-300
+300.1
 300
 300
 300
@@ -12062,7 +12062,7 @@ boundaryField
     interface
     {
         type            fixedGradient;
-        gradient        nonuniform List<scalar> 
+        gradient        nonuniform List<scalar>
 161
 (
 39.5851
