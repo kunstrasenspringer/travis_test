@@ -11,6 +11,9 @@ else
 	touch log_su2-ccx
 fi
 
+Date=$(date)
+date >> log_su2-ccx
+
 # version of preCICE
 PRECICE_VERSION=$(git ls-remote --tags https://github.com/precice/precice.git | tail -1)
 PRECICE_VERSION="precice_version: "$PRECICE_VERSION
@@ -57,7 +60,8 @@ commit_files() {
       $SU2_ADAPTER_VERSION,
       $CALCULIX_VERSION,
       $CCX_ADAPTER_VERSION,
-      $TUTORIALS_VERSION"
+      $TUTORIALS_VERSION,
+			$Date"
   else
       git add log_su2-ccx
       git commit -m "Output==Ref $TRAVIS_BUILD_NUMBER" -m "$PRECICE_VERSION,
@@ -65,7 +69,8 @@ commit_files() {
       $SU2_ADAPTER_VERSION,
       $CALCULIX_VERSION,
       $CCX_ADAPTER_VERSION,
-      $TUTORIALS_VERSION"
+      $TUTORIALS_VERSION,
+			$Date"
   fi
 }
 
