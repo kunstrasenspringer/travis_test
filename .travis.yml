@@ -4,7 +4,6 @@ jobs:
   include:
   - stage: first part
     script:
-    - python push.py 0 of-ccx
     - python push.py 1 of-ccx
 env:
   global:
