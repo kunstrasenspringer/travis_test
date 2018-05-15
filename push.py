@@ -6,9 +6,12 @@ import time
 def git(success, systest):
     # Setting up git user
     subprocess.call(["git config --local user.email \"travis@travis-ci.org\""], shell=True)
+    print("git config --local user.email \"travis@travis-ci.org\"")
     subprocess.call(["git config --local user.name \"Travis CI\""], shell=True)
+    print("git config --local user.name \"Travis CI\"")
     # Clone repository
     subprocess.call(["git clone https://github.com/kunstrasenspringer/travis_test.git"], shell=True)
+    print("git clone https://github.com/kunstrasenspringer/travis_test.git")
     # Move ouput to repository
     message = os.environ['TRAVIS_BUILD_NUMBER']
     if success == 0:
@@ -17,9 +20,11 @@ def git(success, systest):
         message = message + " Output!=Ref"
     else:
         subprocess.call(["mv ${TRAVIS_BUILD_DIR}/log_"+systest+" ${TRAVIS_BUILD_DIR}/precice_st_output"], shell=True)
+        print(mv ${TRAVIS_BUILD_DIR}/log_"+systest+" ${TRAVIS_BUILD_DIR}/precice_st_output)
         message = message + " Output==Ref"
     os.chdir(os.getcwd() + "/travis_test")
     subprocess.call(["git fetch"], shell=True)
+    print("git fetch")
     subprocess.call(["git add ."], shell=True)
     subprocess.call(["git commit -m " + message], shell=True)
     subprocess.call(["git remote set-url origin https://${GH_TOKEN}@github.com/kunstrasenspringer/travis_test.git > /dev/null 2>&1"], shell=True)
