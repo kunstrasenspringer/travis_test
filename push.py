@@ -18,7 +18,7 @@ def git(success, systest):
     else:
         subprocess.call(["mv ${TRAVIS_BUILD_DIR}/log_"+systest+" ${TRAVIS_BUILD_DIR}/precice_st_output"], shell=True)
         message = message + " Output==Ref"
-    os.chdir(os.getcwd() + "/precice_st_output")
+    os.chdir(os.getcwd() + "/travis_test")
     subprocess.call(["git add ."], shell=True)
     subprocess.call(["git commit -m " + message], shell=True)
     subprocess.call(["git remote set-url origin https://${GH_TOKEN}@github.com/kunstrasenspringer/travis_test.git > /dev/null 2>&1"], shell=True)
