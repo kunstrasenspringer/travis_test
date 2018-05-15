@@ -20,7 +20,7 @@ def git(success, systest):
         message = message + " Output!=Ref"
     else:
         subprocess.call(["mv ${TRAVIS_BUILD_DIR}/log_"+systest+" ${TRAVIS_BUILD_DIR}/precice_st_output"], shell=True)
-        print(mv ${TRAVIS_BUILD_DIR}/log_"+systest+" ${TRAVIS_BUILD_DIR}/precice_st_output)
+        print("mv ${TRAVIS_BUILD_DIR}/log_"+systest+" ${TRAVIS_BUILD_DIR}/precice_st_output")
         message = message + " Output==Ref"
     os.chdir(os.getcwd() + "/travis_test")
     subprocess.call(["git fetch"], shell=True)
