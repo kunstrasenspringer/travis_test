@@ -4,31 +4,26 @@ import subprocess
 import time
 
 def git(success, systest):
+    # Clone repository
+    subprocess.call(["git clone https://github.com/kunstrasenspringer/precice_st_output"], shell=True)
+    os.chdir(os.getcwd() + "/precice_st_output")
     # Setting up git user
     subprocess.call(["git config --local user.email \"travis@travis-ci.org\""], shell=True)
-    print("git config --local user.email \"travis@travis-ci.org\"")
     subprocess.call(["git config --local user.name \"Travis CI\""], shell=True)
-    print("git config --local user.name \"Travis CI\"")
-    # Clone repository
-    subprocess.call(["git clone https://github.com/kunstrasenspringer/travis_test.git"], shell=True)
-    print("git clone https://github.com/kunstrasenspringer/travis_test.git")
-    # Move ouput to repository
-    message = os.environ['TRAVIS_BUILD_NUMBER']
     if success == 0:
+        # Move ouput to repository
         subprocess.call(["mv ${TRAVIS_BUILD_DIR}/SystemTest_"+systest+"/Output_"+systest+" ${TRAVIS_BUILD_DIR}/precice_st_output"], shell=True)
         subprocess.call(["mv ${TRAVIS_BUILD_DIR}/log_"+systest+" ${TRAVIS_BUILD_DIR}/precice_st_output"], shell=True)
-        message = message + " Output!=Ref"
     else:
-        subprocess.call(["mv ${TRAVIS_BUILD_DIR}/log_"+systest+" ${TRAVIS_BUILD_DIR}/travis_test"], shell=True)
-        print("mv ${TRAVIS_BUILD_DIR}/log_"+systest+" ${TRAVIS_BUILD_DIR}/precice_st_output")
-        message = message + " Output==Ref"
-    os.chdir(os.getcwd() + "/travis_test")
-    subprocess.call(["git fetch"], shell=True)
-    print("git fetch")
+        subprocess.call(["mv ${TRAVIS_BUILD_DIR}/log_"+systest+" ${TRAVIS_BUILD_DIR}/precice_st_output"], shell=True)
+        #subprocess.call(["mv ${PWD}/log_"+systest+" ${PWD}/precice_st_output"], shell=True)
+        message = os.environ['TRAVIS_BUILD_NUMBER'] + " Output==Reference"
+        #message = "Out=Ref"
     subprocess.call(["git add ."], shell=True)
-    subprocess.call(["git commit -m " + message], shell=True)
-    subprocess.call(["git remote set-url origin https://${GH_TOKEN}@github.com/kunstrasenspringer/travis_test.git > /dev/null 2>&1"], shell=True)
-    subprocess.call(["git push --quiet --set-upstream origin master"], shell=True)
+    cmd = "git commit -m " + message
+    subprocess.call([cmd], shell=True)
+    subprocess.call(["git remote add origin https://${GH_TOKEN}@github.com/kunstrasenspringer/precice_st_output.git > /dev/null 2>&1"], shell=True)
+    subprocess.call(["git push"], shell=True)
 
 
 if __name__ == "__main__":
